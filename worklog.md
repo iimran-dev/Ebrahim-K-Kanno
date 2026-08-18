@@ -1,11 +1,157 @@
-# Worklog
+# Ebrahim K. Kanoo Group Website - Development Worklog
 
---- Task ID: 3 Agent: Header/MegaMenu/MobileMenu builder Task: Build navigation components Work Log: - Created Header.tsx with sticky two-bar navigation (utility bar + main nav) - Created MegaMenu.tsx with enterprise hover dropdown (The Group & Businesses variants) - Created MobileMenu.tsx with fullscreen slide-in overlay and accordion sub-menus - Fixed JSX comment syntax error in Header.tsx - Fixed lint error in MobileMenu.tsx by removing unnecessary setState-in-effect Stage Summary: - All 3 navigation components built with framer-motion animations - Responsive design with mobile-first approach (lg breakpoint for desktop nav) - Premium corporate aesthetic matching brand guidelines (corporate blue, font-display/font-sans) - Scroll-aware header with shadow and backdrop blur - Reduced motion support throughout all components
+---
+Task ID: 1
+Agent: Main Orchestrator
+Task: Discovery and project analysis
 
---- Task ID: 4-5 Agent: HeroSection & StatsSection builder Task: Build hero and statistics sections Work Log: - Created HeroSection.tsx: full-viewport hero with next/image background, dark gradient overlay (bottom-to-top), bottom-left content positioning, staggered framer-motion fade-up animations (eyebrow 0.2s, headline 0.4s, supporting 0.6s, CTAs 0.8s), two CTAs (primary white, secondary ghost with Play icon), pulsing scroll indicator with ChevronDown, prefers-reduced-motion support - Created StatsSection.tsx: full-width bg-corporate section, 5 stats in horizontal row (60+ Years, 2600+ Employees, 15+ Divisions, 100000+ Customers, 25+ Partners), uses AnimatedCounter for count-up animations, ScrollReveal wrapper, vertical white/10 dividers on desktop, responsive wrapping on mobile - Removed JSX comments from HeroSection to resolve ESLint/TSX parsing conflict Stage Summary: - HeroSection: immersive full-screen hero with cinematic gradient overlay, staggered text animations, dual CTAs, animated scroll indicator - StatsSection: data-driven section with 5 key metrics, count-up animations, responsive grid with dividers - Both components pass ESLint (pre-existing AnimatedCounter lint error is unrelated) - Reduced motion fully respected in both components
+Work Log:
+- Analyzed existing Next.js 16 project structure
+- Verified package.json dependencies (framer-motion, gsap, lucide-react, etc.)
+- Reviewed existing shadcn/ui components
+- Identified available brand assets
 
---- Task ID: 6-7-8 Agent: Section Components builder Task: Build Businesses, About, and Sustainability sections Work Log: - Created BusinessesSection.tsx: 6 business cards in responsive grid (3-col desktop, 2-col tablet, 1-col horizontal snap-scroll on mobile with snap-x snap-mandatory and min-w-[85vw]), each card with next/image, gradient overlay, category label, title, description, and ArrowUpRight hover icon, uses SectionContainer (white) and ScrollReveal with staggered delays - Created AboutSection.tsx: two-column editorial layout (lg:col-span-7 text + lg:col-span-5 image), heading with font-display, 3 paragraphs of corporate heritage copy, 'Read Our Story' link with ArrowRight and hover gap animation, image with aspect-[4/3], centered play button overlay with pulse animation (animate-ping on pseudo-element), uses SectionContainer (white) and ScrollReveal with direction-based reveals and staggered delays - Created SustainabilitySection.tsx: surface background, heading and subheading with max-w-2xl, 4 initiative cards (Sun, Leaf, TrendingDown, Users icons) in 2x2 grid (1-col mobile), each card with bg-white, p-8, hover:shadow-lg hover:-translate-y-1 transitions, icon in corporate/5 container, uses SectionContainer (surface) and ScrollReveal Stage Summary: - BusinessesSection: mobile-first horizontal snap scroll with smooth card interactions, responsive grid fallback, image zoom on hover - AboutSection: editorial split layout with play button CTA, direction-aware scroll reveals (right for text, left for image) - SustainabilitySection: clean initiative cards with lift-on-hover, surface background for visual contrast - All 3 components are 'use client', use shared SectionContainer and ScrollReveal, follow brand color/typography system - Reduced motion supported via ScrollReveal and SectionContainer internals
+Stage Summary:
+- Project ready for development with all required dependencies
+- Tailwind CSS 4 with shadcn/ui New York style confirmed
 
---- Task ID: 9-10-11 Agent: Brands/News/Leadership Sections builder Task: Build brand carousel, news grid, and leadership sections Work Log: - Created BrandsSection.tsx: white background, centered heading/subtext with ScrollReveal, infinite horizontal scrolling carousel using CSS @keyframes (brand-scroll, 25s linear infinite) defined in inline <style> tag, 5 brand names (Toyota, Lexus, Toyota Plaza, Ziebart, TyrePlus) duplicated for seamless loop, group-hover pauses animation via animation-play-state, each item px-12 md:px-16 flex-shrink-0 with text-2xl md:text-3xl font-display font-bold text-silver hover:text-corporate transition - Created NewsSection.tsx: surface background, heading with ScrollReveal, 3 news cards in responsive grid (1-col mobile, 3-col desktop), each card with bg-white rounded-sm overflow-hidden group hover:shadow-lg hover:-translate-y-1 transition-all, aspect-[16/9] image with group-hover:scale-105 duration-700, date/category metadata row, line-clamp-2 title, 'Read More' button with ArrowRight icon and hover gap animation, staggered ScrollReveal delays (0, 0.15, 0.3), 'View All News' button below grid - Created LeadershipSection.tsx: white background, heading and subtext with max-w-2xl, 3 leader cards in responsive grid (1-col mobile, 3-col desktop), each card with aspect-[3/4] image defaulting to grayscale(100%) and transitioning to grayscale(0%) on group-hover with scale-105, gradient overlay from transparent to corporate-dark/80, name/position text sliding up on hover via group-hover:-translate-y-1, placeholder names (Ebrahim K. Kanoo for Chairman, Senior Executive for others), separate LeaderCard sub-component with useReducedMotion for hover lift, staggered ScrollReveal delays Stage Summary: - BrandsSection: smooth infinite carousel with CSS-only animation, pauses on hover, brand text styling with hover color change - NewsSection: professional news card grid with image zoom, metadata badges, read-more CTAs, and a view-all link - LeadershipSection: dramatic grayscale-to-color hover effect on portrait images, gradient overlay with slide-up text - All 3 components are 'use client', use shared SectionContainer and ScrollReveal, follow brand color/typography system - All 3 pass ESLint cleanly (pre-existing AnimatedCounter error is unrelated) - Reduced motion supported via ScrollReveal, SectionContainer, and direct useReducedMotion checks
+---
+Task ID: 2
+Agent: Main Orchestrator
+Task: Design system setup
 
---- Task ID: 12-13-14-15 Agent: Careers/CSR/Map/Contact/Footer builder Task: Build CareersSection, CSRTimeline, BahrainMap, ContactCTA, and Footer components Work Log: - Created CareersSection.tsx: full-viewport section with careers-bg.png background via next/image fill+object-cover, corporate-dark/70 overlay, centered content with ScrollReveal, staggered framer-motion fade-up animations (containerVariants+itemVariants), headline in font-display text-3xl/5xl/6xl, two CTAs (Explore Careers bg-white, Life At Kanoo border-white/40), motion.section instead of SectionContainer, reduced motion support - Created CSRTimeline.tsx: white background via SectionContainer, heading with ScrollReveal, 4 timeline items (2024-2021) in vertical flex layout, each item with year (w-20 flex-shrink-0 font-display text-3xl), vertical line divider (w-px bg-corporate/10), content card with title/description/highlighted stat, staggered ScrollReveal delays (index*0.15) - Created BahrainMap.tsx: surface background via SectionContainer, heading and subtext with ScrollReveal, stylized SVG map of Bahrain (main island path + Hawar Islands ellipse + subtle grid lines), 5 location markers with pulse animation (animate-ping with staggered delays), hover tooltips with CSS arrow, location labels always visible on md+, below-map grid of location cards (1/2/3 cols) with lucide icons (Landmark, Building2, Wrench, Factory) and MapPin type labels - Created ContactCTA.tsx: full-width section with contact-bg.png background, gradient overlay (from corporate-dark/80 to corporate/90), centered content with staggered framer-motion animations, headline and subtext, two CTAs (Contact Us bg-white, Business Inquiry border-white/40), motion.section instead of SectionContainer, reduced motion support - Created Footer.tsx: bg-corporate (#0A2D5E) with max-w-[1400px] container, EK KANOO/GROUP text logo, 4-column grid (The Group, Businesses, Resources, Contact) with mobile accordion via useState toggle, bottom section with border-t border-white/10 (copyright, legal links, 4 social icons using lucide-react Globe/Linkedin/Twitter/Instagram in circular bordered buttons), responsive flex layout Stage Summary: - CareersSection: cinematic full-viewport hero with background image, dark overlay, staggered animations, dual CTAs - CSRTimeline: editorial vertical timeline with year markers, dividers, and prominent stat highlights - BahrainMap: interactive SVG map with pulsing location markers, hover tooltips, and companion location card grid - ContactCTA: gradient-overlaid CTA section with staggered animations matching CareersSection pattern - Footer: comprehensive 4-column footer with mobile accordion, contact info, legal links, and social icons - All 5 components are 'use client', use shared SectionContainer/ScrollReveal where appropriate, follow brand system - All 5 pass ESLint cleanly (only pre-existing AnimatedCounter error remains) - Reduced motion supported via useReducedMotion and ScrollReveal internals
+Work Log:
+- Configured Inter and Plus Jakarta Sans fonts via next/font/google
+- Established brand color tokens: corporate (#0A2D5E), corporate-light (#163E7A), corporate-dark (#071D3E), surface (#F5F7FA), charcoal, silver, silver-light, chrome
+- Set up CSS custom properties in globals.css @theme block
+- Created typography hierarchy (font-sans, font-display)
+- Added reduced-motion media query support
+- Added smooth scroll and custom selection colors
+- Updated layout.tsx with SEO metadata, Open Graph, and Twitter cards
+
+Stage Summary:
+- Complete design system with brand colors, typography, spacing tokens
+- SEO metadata for Ebrahim K. Kanoo Group configured
+
+---
+Task ID: 3
+Agent: Header/MegaMenu/MobileMenu builder (subagent)
+Task: Build navigation components
+
+Work Log:
+- Created Header.tsx with sticky two-bar navigation (utility bar + main nav)
+- Created MegaMenu.tsx with enterprise hover dropdown for The Group and Businesses
+- Created MobileMenu.tsx with fullscreen slide-in overlay with accordion sub-menus
+- Scroll-aware header with shadow transition
+- Keyboard navigation (Escape to close mobile menu)
+
+Stage Summary:
+- Premium navigation with mega menus and mobile-first design
+- z-index management: header z-50, mobile backdrop z-60, mobile panel z-70
+
+---
+Task ID: 4-5
+Agent: Hero/Stats builder (subagent)
+Task: Build Hero and Stats sections
+
+Work Log:
+- Created HeroSection.tsx with full-viewport cinematic hero
+- Staggered text reveal animations (eyebrow → headline → supporting → CTAs)
+- Scroll indicator with pulsing chevron
+- Created StatsSection.tsx with 5 animated counters on corporate blue background
+- Count-up animation triggered by IntersectionObserver
+
+Stage Summary:
+- Cinematic hero with parallax-ready background and staggered animations
+- Stats bar with 5 key metrics: 60+ Years, 2600+ Employees, 15+ Divisions, 100000+ Customers, 25+ Partners
+
+---
+Task ID: 6-7-8
+Agent: Businesses/About/Sustainability builder (subagent)
+Task: Build Businesses, About, and Sustainability sections
+
+Work Log:
+- Created BusinessesSection.tsx with 6 business cards (Automotive, Leasing, Industrial, Energy, Technology, Security)
+- Mobile: horizontal snap-scroll container, Desktop: 3-column grid
+- Created AboutSection.tsx with two-column editorial layout and video play button
+- Created SustainabilitySection.tsx with 4 initiative cards on surface background
+
+Stage Summary:
+- Premium business showcase with hover interactions
+- Editorial about section with heritage copy and video preview
+- Sustainability section with icon-driven initiative cards
+
+---
+Task ID: 9-10-11
+Agent: Brands/News/Leadership builder (subagent)
+Task: Build Brands, News, and Leadership sections
+
+Work Log:
+- Created BrandsSection.tsx with CSS keyframe infinite carousel (pauses on hover)
+- Created NewsSection.tsx with 3-article editorial grid
+- Created LeadershipSection.tsx with grayscale-to-color hover effect on portraits
+
+Stage Summary:
+- Seamless brand carousel with 5 brand names
+- News grid with image zoom, card elevation, and editorial typography
+- Leadership portraits with B&W → color transition
+
+---
+Task ID: 12-13-14-15
+Agent: Careers/CSR/Map/Contact/Footer builder (subagent)
+Task: Build Careers, CSR Timeline, Bahrain Map, Contact CTA, and Footer
+
+Work Log:
+- Created CareersSection.tsx with full-viewport cinematic section
+- Created CSRTimeline.tsx with 4-item vertical timeline (2024-2021)
+- Created BahrainMap.tsx with stylized SVG map, 5 location markers with ping animation
+- Created ContactCTA.tsx with night cityscape background and gradient overlay
+- Created Footer.tsx with 4-column layout, mobile accordions, social links
+
+Stage Summary:
+- Full storytelling journey from hero to contact CTA
+- Interactive SVG map of Bahrain with location markers
+- Enterprise footer with comprehensive links and legal section
+
+---
+Task ID: 16
+Agent: Main Orchestrator
+Task: Assemble page, fix lint, and verify
+
+Work Log:
+- Assembled all 14 sections in page.tsx
+- Fixed AnimatedCounter.tsx lint error (React 19 strict mode)
+- Fixed CareersSection.tsx double-animation issue
+- Removed broken tw-animate-css import
+- Verified server returns 200 with 104KB HTML
+
+Stage Summary:
+- Clean lint pass with 0 errors
+- All 14 sections rendering correctly
+- Server compiles in ~3s first load, ~100ms subsequent
+
+---
+Task ID: 17
+Agent: Main Orchestrator
+Task: Agent Browser verification and final QA
+
+Work Log:
+- Verified hero section renders with correct text and CTAs
+- Verified all 12 section headings in correct order
+- Verified stats counters animate on scroll (count-up working)
+- Verified mega menu opens for 'The Group' (shows About, Heritage, Leadership, Bahrain Presence)
+- Verified mega menu opens for 'Businesses'
+- Verified footer with 21 links, copyright, privacy policy, terms
+- Verified SVG Bahrain map with 5 location markers
+- Verified brand scroll track (infinite carousel)
+- Verified mobile viewport (390px) shows hamburger menu
+- Verified mobile menu dialog with all 8 nav items
+- Verified no console errors
+- Took desktop and mobile screenshots
+
+Stage Summary:
+- All 12 sections verified rendering correctly
+- Navigation (desktop mega menu + mobile menu) working
+- Responsive design confirmed at 390px mobile and 1440px desktop
+- Zero console errors, clean lint, 200 status code
+- 19 reusable components built across the kanoo/ directory
