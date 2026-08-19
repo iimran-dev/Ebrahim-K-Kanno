@@ -4,36 +4,7 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
-
-const newsItems = [
-  {
-    img: '/images/news-1.png',
-    date: '15 Jul 2025',
-    category: 'Corporate',
-    title:
-      'Ebrahim K. Kanoo Group Reports Strong Q2 Performance Across All Divisions',
-    excerpt:
-      'The Group continues to demonstrate robust growth in automotive, industrial, and technology sectors...',
-  },
-  {
-    img: '/images/news-2.png',
-    date: '02 Jul 2025',
-    category: 'Automotive',
-    title:
-      'New Toyota Land Cruiser Arrives in Bahrain Through Exclusive Kanoo Partnership',
-    excerpt:
-      'Bahrain customers can now experience the all-new Land Cruiser at Kanoo showrooms across the Kingdom...',
-  },
-  {
-    img: '/images/news-3.png',
-    date: '18 Jun 2025',
-    category: 'CSR',
-    title:
-      'Kanoo Group Launches Major Community Education Initiative Across Bahrain',
-    excerpt:
-      'The initiative aims to support STEM education in 20 schools across the Kingdom...',
-  },
-];
+import { newsItems } from '@/data';
 
 export default function NewsSection() {
   return (

@@ -2,8 +2,7 @@
 
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
-
-const brands = ['Toyota', 'Lexus', 'Toyota Plaza', 'Ziebart', 'TyrePlus'];
+import { brands } from '@/data';
 
 export default function BrandsSection() {
   return (

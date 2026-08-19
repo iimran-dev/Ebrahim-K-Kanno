@@ -4,39 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
-
-const businesses = [
-  {
-    title: 'Automotive',
-    desc: 'Toyota, Lexus and complete mobility solutions.',
-    img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Leasing',
-    desc: 'Smart leasing solutions for businesses.',
-    img: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Industrial',
-    desc: 'World-class equipment and industrial solutions.',
-    img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Information Technology',
-    desc: 'Innovative IT solutions for a connected world.',
-    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Energy',
-    desc: 'Powering a cleaner and sustainable tomorrow.',
-    img: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Security',
-    desc: 'Advanced security solutions for total peace of mind.',
-    img: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=800&q=80',
-  },
-];
+import { businesses } from '@/data';
 
 export default function BusinessesSection() {
   return (

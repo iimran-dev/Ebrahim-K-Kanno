@@ -4,30 +4,13 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
-
-const leaders = [
-  {
-    name: 'Ebrahim K. Kanoo',
-    title: 'Chairman',
-    img: '/images/leader-1.png',
-  },
-  {
-    name: 'Senior Executive',
-    title: 'Chief Executive Officer',
-    img: '/images/leader-2.png',
-  },
-  {
-    name: 'Senior Executive',
-    title: 'Vice President, Operations',
-    img: '/images/leader-3.png',
-  },
-];
+import { leaders, Leader } from '@/data';
 
 function LeaderCard({
   leader,
   index,
 }: {
-  leader: (typeof leaders)[number];
+  leader: Leader;
   index: number;
 }) {
   const shouldReduceMotion = useReducedMotion();

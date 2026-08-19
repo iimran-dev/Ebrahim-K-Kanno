@@ -4,39 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useReducedMotion, Variants } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const slides = [
-  {
-    id: 1,
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=85',
-    alt: 'Luxury silver car driving on highway at golden hour',
-    titleLine1: 'Driven by Trust.',
-    titleLine2: 'Powered by Excellence.',
-    subtitle: "For over 60 years, Ebrahim K. Kanoo has been Bahrain's trusted partner in progress.",
-    ctaText: 'DISCOVER OUR GROUP',
-    ctaLink: '#businesses',
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85',
-    alt: 'Modern Middle Eastern skyline at dusk',
-    titleLine1: 'Pioneering Mobility.',
-    titleLine2: 'Inspiring Innovation.',
-    subtitle: 'Delivering world-class automotive, industrial, and technology solutions across the Kingdom.',
-    ctaText: 'EXPLORE BUSINESSES',
-    ctaLink: '#businesses',
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85',
-    alt: 'Modern glass corporate skyscraper architecture',
-    titleLine1: 'Empowering Bahrain.',
-    titleLine2: 'Building The Future.',
-    subtitle: 'Investing in local talent, sustainable development, and nationwide economic progress.',
-    ctaText: 'LEARN MORE ABOUT US',
-    ctaLink: '#about',
-  },
-];
+import { heroSlides as slides } from '@/data';
 
 export default function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
