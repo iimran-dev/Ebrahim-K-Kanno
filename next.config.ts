@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  basePath: "/ekkgroup",
   images: {
     remotePatterns: [
       {
@@ -17,3 +18,7 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+
+
+
