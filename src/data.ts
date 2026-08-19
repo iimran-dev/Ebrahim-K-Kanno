@@ -46,6 +46,14 @@ export interface BahrainLocation {
   iconName: 'Landmark' | 'Building2' | 'Wrench' | 'Factory';
 }
 
+export interface StatItem {
+  iconName: 'Calendar' | 'Users' | 'Building2' | 'UserCheck' | 'Handshake';
+  end: number;
+  suffix: string;
+  label: string;
+}
+
+
 export const bahrainLocations: BahrainLocation[] = [
   {
     id: 'manama',
@@ -123,12 +131,123 @@ export const sustainabilityInitiatives: SustainabilityInitiative[] = [
   },
 ];
 
-export interface StatItem {
-  iconName: 'Calendar' | 'Users' | 'Building2' | 'UserCheck' | 'Handshake';
-  end: number;
-  suffix: string;
-  label: string;
+export const statItems: StatItem[] = [
+  {
+    iconName: 'Calendar',
+    end: 60,
+    suffix: '+',
+    label: 'Years of Legacy in Bahrain',
+  },
+  {
+    iconName: 'Users',
+    end: 2600,
+    suffix: '+',
+    label: 'Employees and Growing',
+  },
+  {
+    iconName: 'Building2',
+    end: 15,
+    suffix: '+',
+    label: 'Business Divisions',
+  },
+  {
+    iconName: 'UserCheck',
+    end: 100000,
+    suffix: '+',
+    label: 'Happy Customers',
+  },
+  {
+    iconName: 'Handshake',
+    end: 25,
+    suffix: '+',
+    label: 'Global Brands & Partnerships',
+  },
+];
+
+export interface AboutFeature {
+  iconName: 'Award' | 'Users' | 'Leaf';
+  title: string;
 }
+
+export const aboutData = {
+  tag: 'ABOUT US',
+  titleLine1: 'A Legacy Built on Trust',
+  titleLine2: 'A Future Driven by Innovation.',
+  description:
+    'From a humble beginning in 1960 to becoming one of the most diversified business groups in the region, our journey has been defined by values, vision and the trust of Bahrain.',
+  ctaText: 'OUR STORY',
+  ctaHref: '#story',
+  image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200',
+  imageAlt: 'Ebrahim K. Kanoo Headquarters',
+  features: [
+    {
+      iconName: 'Award',
+      title: "Bahrain's\nHomegrown\nEnterprise",
+    },
+    {
+      iconName: 'Users',
+      title: 'Built on Values.\nFocused on\nPeople.',
+    },
+    {
+      iconName: 'Leaf',
+      title: 'Committed to\nSustainability &\nCommunities.',
+    },
+  ] as AboutFeature[],
+};
+
+export interface HeaderNavItem {
+  label: string;
+  href: string;
+}
+
+export const headerNavItems: HeaderNavItem[] = [
+  { label: 'About Us', href: '#about' },
+  { label: 'Businesses', href: '#businesses' },
+  { label: 'Sustainability', href: '#sustainability' },
+  { label: 'Our Brands', href: '#brands' },
+  { label: 'News & Insights', href: '#news' },
+  { label: 'Presence', href: '#presence' },
+];
+
+export interface FooterSocialLink {
+  iconName: 'Globe' | 'Linkedin' | 'Twitter' | 'Instagram';
+  label: string;
+  href: string;
+}
+
+export const footerData = {
+  group: [
+    { label: 'About Us', href: '#about' },
+    { label: 'Leadership', href: '#leadership' },
+    { label: 'Heritage & Legacy', href: '#about' },
+    { label: 'Sustainability', href: '#sustainability' },
+  ],
+  businesses: [
+    { label: 'Automotive', href: '#businesses' },
+    { label: 'Leasing Solutions', href: '#businesses' },
+    { label: 'Industrial Equipment', href: '#businesses' },
+    { label: 'Information Technology', href: '#businesses' },
+    { label: 'Energy & Power', href: '#businesses' },
+    { label: 'Security Systems', href: '#businesses' },
+  ],
+  resources: [
+    { label: 'News & Insights', href: '#news' },
+    { label: 'Presence & Map', href: '#presence' },
+    { label: 'Careers', href: '#' },
+    { label: 'Investor Relations', href: '#' },
+  ],
+  socials: [
+    { iconName: 'Globe', label: 'Website', href: '#' },
+    { iconName: 'Linkedin', label: 'LinkedIn', href: 'https://linkedin.com' },
+    { iconName: 'Twitter', label: 'Twitter', href: 'https://twitter.com' },
+    { iconName: 'Instagram', label: 'Instagram', href: 'https://instagram.com' },
+  ] as FooterSocialLink[],
+  bottomLinks: [
+    { label: 'Privacy Policy', href: '#' },
+    { label: 'Terms of Use', href: '#' },
+    { label: 'Sitemap', href: '#' },
+  ],
+};
 
 export const businesses: Business[] = [
   {
@@ -239,4 +358,5 @@ export const newsItems: NewsItem[] = [
     excerpt: 'The initiative aims to support STEM education in 20 schools across the Kingdom.',
   },
 ];
+
 

@@ -13,42 +13,14 @@ import {
   Send,
   ChevronDown,
 } from 'lucide-react';
+import { footerData } from '@/data';
 
-const footerLinks = {
-  group: [
-    { label: 'About Us', href: '#about' },
-    { label: 'Leadership', href: '#leadership' },
-    { label: 'Heritage & Legacy', href: '#about' },
-    { label: 'Sustainability', href: '#sustainability' },
-  ],
-  businesses: [
-    { label: 'Automotive', href: '#businesses' },
-    { label: 'Leasing Solutions', href: '#businesses' },
-    { label: 'Industrial Equipment', href: '#businesses' },
-    { label: 'Information Technology', href: '#businesses' },
-    { label: 'Energy & Power', href: '#businesses' },
-    { label: 'Security Systems', href: '#businesses' },
-  ],
-  resources: [
-    { label: 'News & Insights', href: '#news' },
-    { label: 'Presence & Map', href: '#presence' },
-    { label: 'Careers', href: '#' },
-    { label: 'Investor Relations', href: '#' },
-  ],
+const socialIconMap = {
+  Globe,
+  Linkedin,
+  Twitter,
+  Instagram,
 };
-
-const socialLinks = [
-  { icon: Globe, label: 'Website', href: '#' },
-  { icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com' },
-  { icon: Twitter, label: 'Twitter', href: 'https://twitter.com' },
-  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com' },
-];
-
-const bottomLinks = [
-  { label: 'Privacy Policy', href: '#' },
-  { label: 'Terms of Use', href: '#' },
-  { label: 'Sitemap', href: '#' },
-];
 
 export default function Footer() {
   const [mobileOpen, setMobileOpen] = useState<string | null>(null);
@@ -58,6 +30,7 @@ export default function Footer() {
   const toggleAccordion = (section: string) => {
     setMobileOpen(mobileOpen === section ? null : section);
   };
+
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,8 +106,8 @@ export default function Footer() {
 
             {/* Social Icons */}
             <div className="pt-2 flex items-center gap-2.5">
-              {socialLinks.map((social) => {
-                const IconComponent = social.icon;
+              {footerData.socials.map((social) => {
+                const IconComponent = socialIconMap[social.iconName];
                 return (
                   <a
                     key={social.label}
@@ -164,7 +137,7 @@ export default function Footer() {
               />
             </button>
             <ul className={`space-y-2.5 ${mobileOpen === 'group' ? 'block' : 'hidden md:block'}`}>
-              {footerLinks.group.map((link) => (
+              {footerData.group.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -192,7 +165,7 @@ export default function Footer() {
               />
             </button>
             <ul className={`space-y-2.5 ${mobileOpen === 'businesses' ? 'block' : 'hidden md:block'}`}>
-              {footerLinks.businesses.map((link) => (
+              {footerData.businesses.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -242,7 +215,7 @@ export default function Footer() {
           <p>© 2025 Ebrahim K. Kanoo Group. All rights reserved.</p>
 
           <nav className="flex items-center gap-6" aria-label="Legal links">
-            {bottomLinks.map((link) => (
+            {footerData.bottomLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
@@ -252,6 +225,7 @@ export default function Footer() {
               </a>
             ))}
           </nav>
+
 
           <button
             type="button"

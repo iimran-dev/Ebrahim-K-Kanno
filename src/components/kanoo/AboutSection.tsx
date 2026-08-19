@@ -4,6 +4,13 @@ import Image from 'next/image';
 import { ChevronRight, Play, Award, Users, Leaf } from 'lucide-react';
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
+import { aboutData } from '@/data';
+
+const iconMap = {
+  Award,
+  Users,
+  Leaf,
+};
 
 export default function AboutSection() {
   return (
@@ -14,29 +21,27 @@ export default function AboutSection() {
           <div>
             <ScrollReveal direction="right">
               <span className="text-[#3B669B] font-semibold text-xs md:text-sm tracking-widest uppercase block mb-3">
-                ABOUT US
+                {aboutData.tag}
               </span>
               <h2 className="font-display text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[2.75rem] font-bold text-corporate leading-[1.2]">
-                A Legacy Built on Trust
+                {aboutData.titleLine1}
                 <br />
-                A Future Driven by Innovation.
+                {aboutData.titleLine2}
               </h2>
             </ScrollReveal>
 
             <ScrollReveal direction="right" delay={0.15}>
               <p className="text-charcoal/80 text-sm md:text-base leading-relaxed mt-5 mb-8 max-w-2xl">
-                From a humble beginning in 1960 to becoming one of the most diversified
-                business groups in the region, our journey has been defined by values,
-                vision and the trust of Bahrain.
+                {aboutData.description}
               </p>
             </ScrollReveal>
 
             <ScrollReveal direction="right" delay={0.25}>
               <a
-                href="#story"
+                href={aboutData.ctaHref}
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-corporate text-corporate hover:bg-corporate hover:text-white transition-all text-xs font-bold tracking-wider uppercase rounded-sm group mb-10"
               >
-                <span>OUR STORY</span>
+                <span>{aboutData.ctaText}</span>
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </ScrollReveal>
@@ -45,41 +50,17 @@ export default function AboutSection() {
           {/* Bottom 3 Feature Highlights */}
           <ScrollReveal direction="up" delay={0.35}>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-gray-200/60">
-              {/* Feature 1 */}
-              <div className="flex items-start gap-3">
-                <Award className="w-6 h-6 text-corporate shrink-0 mt-0.5 stroke-[1.75]" />
-                <span className="text-xs md:text-sm font-bold text-corporate leading-snug">
-                  Bahrain&apos;s
-                  <br />
-                  Homegrown
-                  <br />
-                  Enterprise
-                </span>
-              </div>
-
-              {/* Feature 2 */}
-              <div className="flex items-start gap-3">
-                <Users className="w-6 h-6 text-corporate shrink-0 mt-0.5 stroke-[1.75]" />
-                <span className="text-xs md:text-sm font-bold text-corporate leading-snug">
-                  Built on Values.
-                  <br />
-                  Focused on
-                  <br />
-                  People.
-                </span>
-              </div>
-
-              {/* Feature 3 */}
-              <div className="flex items-start gap-3">
-                <Leaf className="w-6 h-6 text-corporate shrink-0 mt-0.5 stroke-[1.75]" />
-                <span className="text-xs md:text-sm font-bold text-corporate leading-snug">
-                  Committed to
-                  <br />
-                  Sustainability &amp;
-                  <br />
-                  Communities.
-                </span>
-              </div>
+              {aboutData.features.map((feat) => {
+                const IconComponent = iconMap[feat.iconName];
+                return (
+                  <div key={feat.iconName} className="flex items-start gap-3">
+                    <IconComponent className="w-6 h-6 text-corporate shrink-0 mt-0.5 stroke-[1.75]" />
+                    <span className="text-xs md:text-sm font-bold text-corporate leading-snug whitespace-pre-line">
+                      {feat.title}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </ScrollReveal>
         </div>
@@ -89,8 +70,8 @@ export default function AboutSection() {
           <ScrollReveal direction="left" delay={0.2}>
             <div className="relative w-full aspect-[4/3] lg:aspect-[16/11] xl:aspect-[4/3] rounded-sm overflow-hidden shadow-sm group cursor-pointer">
               <Image
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200"
-                alt="Ebrahim K. Kanoo Headquarters"
+                src={aboutData.image}
+                alt={aboutData.imageAlt}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 1024px) 100vw, 42vw"
@@ -117,4 +98,5 @@ export default function AboutSection() {
     </SectionContainer>
   );
 }
+
 

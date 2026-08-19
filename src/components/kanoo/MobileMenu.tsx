@@ -3,20 +3,12 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { X, MapPin, ChevronRight } from 'lucide-react';
+import { headerNavItems } from '@/data';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const navItems = [
-  { label: 'About Us', href: '#about' },
-  { label: 'Businesses', href: '#businesses' },
-  { label: 'Sustainability', href: '#sustainability' },
-  { label: 'Our Brands', href: '#brands' },
-  { label: 'News & Insights', href: '#news' },
-  { label: 'Presence & Locations', href: '#presence' },
-];
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -79,7 +71,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             {/* Direct Navigation Links */}
             <nav className="flex-1 overflow-y-auto scrollbar-hide py-3 px-3" aria-label="Mobile navigation">
               <ul className="space-y-1">
-                {navItems.map((item) => (
+                {headerNavItems.map((item) => (
                   <li key={item.label}>
                     <a
                       href={item.href}
@@ -111,3 +103,4 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     </AnimatePresence>
   );
 }
+

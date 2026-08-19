@@ -4,15 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Menu, MapPin } from 'lucide-react';
 import MobileMenu from './MobileMenu';
-
-const navItems = [
-  { label: 'About Us', href: '#about' },
-  { label: 'Businesses', href: '#businesses' },
-  { label: 'Sustainability', href: '#sustainability' },
-  { label: 'Our Brands', href: '#brands' },
-  { label: 'News & Insights', href: '#news' },
-  { label: 'Presence', href: '#presence' },
-];
+import { headerNavItems } from '@/data';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -73,7 +65,7 @@ export default function Header() {
 
           {/* Desktop Direct Links Navigation (No Dropdown) */}
           <nav className="hidden lg:flex items-center gap-1 sm:gap-1.5 h-full" aria-label="Main navigation">
-            {navItems.map((item) => (
+            {headerNavItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
@@ -115,5 +107,6 @@ export default function Header() {
     </>
   );
 }
+
 
 

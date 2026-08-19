@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2D5E" />
+      <stop offset="100%" stop-color="#05162E" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#60A5FA" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-grad)" />
+
+  <!-- Subtle Inner Border Glow -->
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="8" />
+
+  <!-- Bold "EK" Text -->
+  <text
+    x="50%"
+    y="51%"
+    font-family="'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif"
+    font-weight="900"
+    font-size="240"
+    letter-spacing="-4"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    dominant-baseline="central"
+  >
+    EK
+  </text>
+
+  <!-- Accent Line Below -->
+  <rect x="166" y="392" width="180" height="18" rx="9" fill="url(#accent-grad)" />
+</svg>

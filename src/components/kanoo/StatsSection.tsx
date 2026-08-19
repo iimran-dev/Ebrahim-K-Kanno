@@ -3,39 +3,15 @@
 import { Calendar, Users, Building2, UserCheck, Handshake } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import AnimatedCounter from './AnimatedCounter';
+import { statItems } from '@/data';
 
-const stats = [
-  {
-    icon: Calendar,
-    end: 60,
-    suffix: '+',
-    label: 'Years of Legacy in Bahrain',
-  },
-  {
-    icon: Users,
-    end: 2600,
-    suffix: '+',
-    label: 'Employees and Growing',
-  },
-  {
-    icon: Building2,
-    end: 15,
-    suffix: '+',
-    label: 'Business Divisions',
-  },
-  {
-    icon: UserCheck,
-    end: 100000,
-    suffix: '+',
-    label: 'Happy Customers',
-  },
-  {
-    icon: Handshake,
-    end: 25,
-    suffix: '+',
-    label: 'Global Brands & Partnerships',
-  },
-];
+const iconMap = {
+  Calendar,
+  Users,
+  Building2,
+  UserCheck,
+  Handshake,
+};
 
 export default function StatsSection() {
   return (
@@ -43,8 +19,8 @@ export default function StatsSection() {
       <div className="mx-auto max-w-[1440px] px-6 md:px-10 lg:px-12">
         <ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-0 items-center justify-between">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
+            {statItems.map((stat, index) => {
+              const Icon = iconMap[stat.iconName];
               return (
                 <div
                   key={stat.label}
@@ -63,7 +39,7 @@ export default function StatsSection() {
                   />
 
                   {/* Vertical divider - hidden on last item and mobile */}
-                  {index < stats.length - 1 && (
+                  {index < statItems.length - 1 && (
                     <div
                       className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 h-10 w-px bg-white/15"
                       aria-hidden="true"
@@ -78,3 +54,4 @@ export default function StatsSection() {
     </section>
   );
 }
+
