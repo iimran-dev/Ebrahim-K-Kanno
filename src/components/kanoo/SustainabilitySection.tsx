@@ -1,78 +1,70 @@
 'use client';
 
 import { Sun, Leaf, TrendingDown, Users } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
+import { sustainabilityInitiatives } from '@/data';
 
-interface Initiative {
-  icon: LucideIcon;
-  title: string;
-  desc: string;
-}
-
-const initiatives: Initiative[] = [
-  {
-    icon: Sun,
-    title: 'Renewable Energy',
-    desc: "Investing in solar and clean energy solutions to power Bahrain's future.",
-  },
-  {
-    icon: Leaf,
-    title: 'ESG Initiatives',
-    desc: 'Embedding environmental, social, and governance principles across all operations.',
-  },
-  {
-    icon: TrendingDown,
-    title: 'Carbon Reduction',
-    desc: 'Committed to measurable carbon footprint reduction across our business divisions.',
-  },
-  {
-    icon: Users,
-    title: 'Community Projects',
-    desc: 'Supporting communities through education, health, and environmental programs.',
-  },
-];
+const iconMap = {
+  Sun,
+  Leaf,
+  TrendingDown,
+  Users,
+};
 
 export default function SustainabilitySection() {
   return (
-    <SectionContainer background="surface" id="sustainability">
-      <ScrollReveal>
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-corporate leading-tight">
-          Driving Bahrain Towards
-          <br />
-          A Sustainable Future.
-        </h2>
-      </ScrollReveal>
+    <SectionContainer
+      background="surface"
+      id="sustainability"
+      noPadding
+      className="py-12 md:py-16 border-y border-gray-200/60 bg-[#F4F7FA]"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        {/* Left Column: Compact Header & Intro */}
+        <div className="lg:col-span-5 xl:col-span-4">
+          <ScrollReveal direction="right">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 text-[11px] font-bold tracking-wider uppercase mb-3">
+              <Leaf className="w-3.5 h-3.5" />
+              <span>SUSTAINABILITY</span>
+            </div>
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-corporate leading-tight">
+              Driving Bahrain Towards A Sustainable Future.
+            </h2>
+            <p className="mt-3 text-charcoal/70 text-sm leading-relaxed">
+              Sustainability is integral to our business strategy—fostering environmental stewardship and lasting community impact across the Kingdom.
+            </p>
+          </ScrollReveal>
+        </div>
 
-      <ScrollReveal delay={0.1}>
-        <p className="mt-6 text-charcoal/70 max-w-2xl leading-relaxed">
-          Sustainability is not just a commitment—it is integral to our business
-          strategy and the future of Bahrain.
-        </p>
-      </ScrollReveal>
-
-      {/* Initiative Cards Grid */}
-      <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {initiatives.map((item, index) => {
-          const IconComponent = item.icon;
-          return (
-            <ScrollReveal key={item.title} delay={0.15 + index * 0.08}>
-              <div className="bg-white p-8 rounded-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <div className="w-12 h-12 rounded-sm bg-corporate/5 flex items-center justify-center mb-5">
-                  <IconComponent className="w-6 h-6 text-corporate" />
-                </div>
-                <h3 className="font-display text-lg font-semibold text-charcoal mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-charcoal/70 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            </ScrollReveal>
-          );
-        })}
+        {/* Right Column: Compact 2x2 Modern Cards Grid */}
+        <div className="lg:col-span-7 xl:col-span-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {sustainabilityInitiatives.map((item, index) => {
+              const IconComponent = iconMap[item.iconName];
+              return (
+                <ScrollReveal key={item.title} delay={0.1 + index * 0.06}>
+                  <div className="group bg-white p-5 rounded-xl border border-gray-100/80 shadow-sm hover:shadow-md hover:border-emerald-500/30 transition-all duration-300 flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300 shadow-xs">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-base font-semibold text-charcoal group-hover:text-corporate transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-charcoal/70 leading-relaxed mt-1">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </SectionContainer>
   );
 }
+
+

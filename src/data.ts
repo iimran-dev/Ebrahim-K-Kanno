@@ -35,6 +35,94 @@ export interface SustainabilityInitiative {
   desc: string;
 }
 
+export interface BahrainLocation {
+  id: string;
+  name: string;
+  region: string;
+  x: string;
+  y: string;
+  type: string;
+  address: string;
+  iconName: 'Landmark' | 'Building2' | 'Wrench' | 'Factory';
+}
+
+export const bahrainLocations: BahrainLocation[] = [
+  {
+    id: 'manama',
+    name: 'Headquarters - Manama',
+    region: 'Al ‘Āşimah',
+    x: '52%',
+    y: '22%',
+    type: 'Headquarters',
+    address: 'Kanoo Tower, Manama Diplomatic Area',
+    iconName: 'Landmark',
+  },
+  {
+    id: 'seef',
+    name: 'Lexus Centre - Seef',
+    region: 'Al ‘Āşimah',
+    x: '42%',
+    y: '20%',
+    type: 'Showroom',
+    address: 'Seef District, Manama',
+    iconName: 'Building2',
+  },
+  {
+    id: 'muharraq',
+    name: 'Service Center - Muharraq',
+    region: 'Al Muḩarraq',
+    x: '64%',
+    y: '14%',
+    type: 'Service Center',
+    address: 'Airport Road, Muharraq',
+    iconName: 'Wrench',
+  },
+  {
+    id: 'hidd',
+    name: 'Industrial Division - Hidd',
+    region: 'Al Muḩarraq',
+    x: '72%',
+    y: '25%',
+    type: 'Industrial',
+    address: 'BIIP Industrial Area, Hidd',
+    iconName: 'Factory',
+  },
+  {
+    id: 'sitra',
+    name: 'Toyota Showroom - Sitra',
+    region: 'Al Janūbīyah',
+    x: '56%',
+    y: '34%',
+    type: 'Showroom',
+    address: 'Sitra Highway, Sitra',
+    iconName: 'Building2',
+  },
+];
+
+export const sustainabilityInitiatives: SustainabilityInitiative[] = [
+
+  {
+    iconName: 'Sun',
+    title: 'Renewable Energy',
+    desc: 'Investing in solar and clean energy solutions to power Bahrain.',
+  },
+  {
+    iconName: 'Leaf',
+    title: 'ESG Initiatives',
+    desc: 'Embedding environmental, social, and governance standards across operations.',
+  },
+  {
+    iconName: 'TrendingDown',
+    title: 'Carbon Reduction',
+    desc: 'Measurable carbon footprint reduction across all business divisions.',
+  },
+  {
+    iconName: 'Users',
+    title: 'Community Impact',
+    desc: 'Empowering communities through education, health, and green programs.',
+  },
+];
+
 export interface StatItem {
   iconName: 'Calendar' | 'Users' | 'Building2' | 'UserCheck' | 'Handshake';
   end: number;
@@ -130,24 +218,25 @@ export const leaders: Leader[] = [
 
 export const newsItems: NewsItem[] = [
   {
-    img: '/images/news-1.png',
+    img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80',
     date: '15 Jul 2025',
     category: 'Corporate',
     title: 'Ebrahim K. Kanoo Group Reports Strong Q2 Performance Across All Divisions',
-    excerpt: 'The Group continues to demonstrate robust growth in automotive, industrial, and technology sectors...',
+    excerpt: 'The Group continues to demonstrate robust growth in automotive, industrial, and technology sectors.',
   },
   {
-    img: '/images/news-2.png',
+    img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
     date: '02 Jul 2025',
     category: 'Automotive',
     title: 'New Toyota Land Cruiser Arrives in Bahrain Through Exclusive Kanoo Partnership',
-    excerpt: 'Bahrain customers can now experience the all-new Land Cruiser at Kanoo showrooms across the Kingdom...',
+    excerpt: 'Bahrain customers can now experience the all-new Land Cruiser at Kanoo showrooms across the Kingdom.',
   },
   {
-    img: '/images/news-3.png',
+    img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
     date: '18 Jun 2025',
     category: 'CSR',
     title: 'Kanoo Group Launches Major Community Education Initiative Across Bahrain',
-    excerpt: 'The initiative aims to support STEM education in 20 schools across the Kingdom...',
+    excerpt: 'The initiative aims to support STEM education in 20 schools across the Kingdom.',
   },
 ];
+

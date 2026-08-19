@@ -1,183 +1,211 @@
 'use client';
 
 import { useState } from 'react';
-import { MapPin, Building2, Wrench, Factory, Landmark } from 'lucide-react';
+import Bahrain from '@react-map/bahrain';
+import { MapPin, Building2, Wrench, Factory, Landmark, Navigation } from 'lucide-react';
 import SectionContainer from './SectionContainer';
 import ScrollReveal from './ScrollReveal';
+import { bahrainLocations, BahrainLocation } from '@/data';
 
-interface Location {
-  name: string;
-  x: string;
-  y: string;
-  type: string;
-  icon: React.ReactNode;
-}
-
-const locations: Location[] = [
-  {
-    name: 'Headquarters - Manama',
-    x: '55%',
-    y: '45%',
-    type: 'Headquarters',
-    icon: <Landmark className="w-4 h-4" />,
-  },
-  {
-    name: 'Toyota Showroom - Sitra',
-    x: '65%',
-    y: '60%',
-    type: 'Showroom',
-    icon: <Building2 className="w-4 h-4" />,
-  },
-  {
-    name: 'Lexus Centre - Seef',
-    x: '30%',
-    y: '35%',
-    type: 'Showroom',
-    icon: <Building2 className="w-4 h-4" />,
-  },
-  {
-    name: 'Service Center - Muharraq',
-    x: '45%',
-    y: '25%',
-    type: 'Service Center',
-    icon: <Wrench className="w-4 h-4" />,
-  },
-  {
-    name: 'Industrial Division - Hidd',
-    x: '75%',
-    y: '55%',
-    type: 'Industrial',
-    icon: <Factory className="w-4 h-4" />,
-  },
-];
-
-function MapMarker({ location, index }: { location: Location; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      className="absolute -translate-x-1/2 -translate-y-1/2 group"
-      style={{ left: location.x, top: location.y }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Pulse Ring */}
-      <span className="absolute inset-0 -m-2 w-7 h-7 rounded-full bg-corporate/20 animate-ping" style={{
-        animationDelay: `${index * 0.3}s`,
-        animationDuration: '2s',
-        animationIterationCount: 'infinite',
-      }} />
-      {/* Dot */}
-      <span className="relative block w-3 h-3 bg-corporate rounded-full shadow-md" />
-      {/* Label - always visible on desktop, visible on hover on mobile */}
-      <span className={`
-        absolute left-1/2 -translate-x-1/2 top-5 whitespace-nowrap
-        bg-corporate text-white text-xs font-medium px-3 py-1.5 rounded-sm shadow-lg
-        transition-opacity duration-200 pointer-events-none
-        md:opacity-100 ${isHovered ? 'opacity-100' : 'opacity-0'}
-        after:content-[''] after:absolute after:top-0 after:left-1/2 after:-translate-x-1/2 after:-translate-y-full
-        after:border-4 after:border-transparent after:border-b-corporate
-      `}>
-        {location.name}
-      </span>
-    </div>
-  );
-}
+const iconMap = {
+  Landmark,
+  Building2,
+  Wrench,
+  Factory,
+};
 
 export default function BahrainMap() {
+  const [activeLocation, setActiveLocation] = useState<BahrainLocation | null>(null);
+  const [selectedState, setSelectedState] = useState<string | null>(null);
+
   return (
-    <SectionContainer background="surface">
-      <ScrollReveal>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-corporate">
-          Our Presence Across Bahrain.
-        </h2>
-        <p className="text-charcoal/60 mt-3 max-w-xl">
-          Strategically located showrooms, service centers, and offices across the Kingdom.
-        </p>
-      </ScrollReveal>
-
-      {/* Map Container */}
-      <ScrollReveal delay={0.15}>
-        <div className="relative mt-12 md:mt-16 w-full max-w-3xl mx-auto">
-          <div className="relative w-full aspect-[3/2]">
-            {/* Stylized SVG Map of Bahrain */}
-            <svg
-              viewBox="0 0 600 400"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-full h-full"
-            >
-              {/* Main Bahrain island shape - elongated north-south with a hook on the north */}
-              <path
-                d="M 320 60 C 340 55, 380 58, 400 70 C 420 82, 440 100, 445 120 C 450 140, 445 160, 435 180 C 425 200, 410 215, 395 230 C 380 245, 360 258, 340 268 C 320 278, 298 285, 275 290 C 252 295, 230 296, 210 290 C 190 284, 172 272, 160 255 C 148 238, 142 218, 140 198 C 138 178, 142 158, 150 140 C 158 122, 170 108, 185 96 C 200 84, 220 76, 240 70 C 260 64, 280 60, 300 58 Z"
-                fill="var(--color-corporate, #0A2D5E)"
-                fillOpacity="0.06"
-                stroke="var(--color-corporate, #0A2D5E)"
-                strokeWidth="2"
-                strokeOpacity="0.2"
-              />
-              {/* Smaller islands to the east (Hawar Islands suggestion) */}
-              <ellipse
-                cx="480"
-                cy="280"
-                rx="25"
-                ry="12"
-                fill="var(--color-corporate, #0A2D5E)"
-                fillOpacity="0.04"
-                stroke="var(--color-corporate, #0A2D5E)"
-                strokeWidth="1.5"
-                strokeOpacity="0.15"
-              />
-              {/* Northern coastline detail */}
-              <path
-                d="M 300 58 C 285 50, 260 48, 240 52"
-                fill="none"
-                stroke="var(--color-corporate, #0A2D5E)"
-                strokeWidth="1.5"
-                strokeOpacity="0.12"
-                strokeDasharray="6 4"
-              />
-              {/* Subtle grid lines for cartographic feel */}
-              <line x1="0" y1="100" x2="600" y2="100" stroke="var(--color-corporate, #0A2D5E)" strokeWidth="0.5" strokeOpacity="0.05" />
-              <line x1="0" y1="200" x2="600" y2="200" stroke="var(--color-corporate, #0A2D5E)" strokeWidth="0.5" strokeOpacity="0.05" />
-              <line x1="0" y1="300" x2="600" y2="300" stroke="var(--color-corporate, #0A2D5E)" strokeWidth="0.5" strokeOpacity="0.05" />
-              <line x1="150" y1="0" x2="150" y2="400" stroke="var(--color-corporate, #0A2D5E)" strokeWidth="0.5" strokeOpacity="0.05" />
-              <line x1="300" y1="0" x2="300" y2="400" stroke="var(--color-corporate, #0A2D5E)" strokeWidth="0.5" strokeOpacity="0.05" />
-              <line x1="450" y1="0" x2="450" y2="400" stroke="var(--color-corporate, #0A2D5E)" strokeWidth="0.5" strokeOpacity="0.05" />
-            </svg>
-
-            {/* Location Markers */}
-            {locations.map((location, index) => (
-              <MapMarker key={location.name} location={location} index={index} />
-            ))}
+    <SectionContainer background="surface" id="presence" className="bg-[#F4F7FA] py-12 md:py-20">
+      {/* Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-8 md:mb-12">
+        <ScrollReveal direction="right">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-corporate/10 border border-corporate/20 text-corporate text-[11px] font-bold tracking-wider uppercase mb-2.5">
+            <Navigation className="w-3.5 h-3.5" />
+            <span>KINGDOM OF BAHRAIN</span>
           </div>
-        </div>
-      </ScrollReveal>
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-corporate leading-tight">
+            Our Presence Across Bahrain.
+          </h2>
+          <p className="text-charcoal/70 mt-2 max-w-xl text-xs sm:text-sm md:text-base leading-relaxed">
+            Strategically located showrooms, service centers, and corporate facilities servicing clients across all governorates of Bahrain.
+          </p>
+        </ScrollReveal>
+      </div>
 
-      {/* Location List */}
-      <ScrollReveal delay={0.3}>
-        <div className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {locations.map((location) => (
-            <div
-              key={location.name}
-              className="flex items-start gap-3 bg-white p-4 rounded-sm group hover:shadow-md transition-shadow"
-            >
-              <div className="flex-shrink-0 w-9 h-9 bg-corporate/5 flex items-center justify-center text-corporate">
-                {location.icon}
+      {/* Main Grid Layout: Mobile Order Optimized */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        {/* Right Column (Map) on Mobile goes first or side-by-side */}
+        <div className="lg:col-span-7 order-1 lg:order-2">
+          <ScrollReveal direction="left" delay={0.15}>
+            <div className="relative bg-white rounded-2xl border border-gray-200/80 p-4 sm:p-6 shadow-sm flex flex-col items-center justify-center overflow-hidden">
+              {/* Interactive SVG Map Wrapper */}
+              <div className="relative w-full max-w-[320px] sm:max-w-[420px] lg:max-w-[460px] aspect-square flex items-center justify-center mx-auto my-2">
+                <Bahrain
+                  type="select-single"
+                  size={360}
+                  mapColor="#F0F4F8"
+                  strokeColor="#0A2D5E"
+                  strokeWidth={1}
+                  hoverColor="#163E7A"
+                  selectColor="#0A2D5E"
+                  hints={true}
+                  hintTextColor="#ffffff"
+                  hintBackgroundColor="#0A2D5E"
+                  hintPadding="6px 12px"
+                  hintBorderRadius={6}
+                  onSelect={(state) => setSelectedState(state)}
+                />
+
+                {/* Location Map Pins Overlay */}
+                {bahrainLocations.map((loc, idx) => {
+                  const isActive = activeLocation?.id === loc.id;
+                  return (
+                    <div
+                      key={loc.id}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-10"
+                      style={{ left: loc.x, top: loc.y }}
+                      onMouseEnter={() => setActiveLocation(loc)}
+                      onMouseLeave={() => setActiveLocation(null)}
+                      onClick={() => setActiveLocation(loc)}
+                    >
+                      {/* Pulse ring */}
+                      <span
+                        className={`absolute inset-0 -m-2 rounded-full transition-opacity ${
+                          isActive
+                            ? 'w-8 h-8 bg-corporate/30 animate-ping opacity-100'
+                            : 'w-5 h-5 sm:w-6 sm:h-6 bg-corporate/20 animate-pulse opacity-60'
+                        }`}
+                        style={{ animationDelay: `${idx * 0.2}s` }}
+                      />
+
+                      {/* Pin Marker Dot */}
+                      <span
+                        className={`relative flex items-center justify-center rounded-full shadow-md transition-all duration-300 ${
+                          isActive
+                            ? 'w-6 h-6 bg-corporate text-white scale-125 ring-2 ring-white'
+                            : 'w-3.5 h-3.5 sm:w-4 sm:h-4 bg-corporate text-white'
+                        }`}
+                      >
+                        <span className="w-1.5 h-1.5 bg-white rounded-full" />
+                      </span>
+
+                      {/* Tooltip Label */}
+                      <div
+                        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap bg-corporate text-white text-[10px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded shadow-lg transition-all duration-200 pointer-events-none ${
+                          isActive
+                            ? 'opacity-100 translate-y-0'
+                            : 'opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0'
+                        }`}
+                      >
+                        {loc.name}
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-corporate" />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-charcoal truncate">
-                  {location.name}
-                </p>
-                <p className="text-xs text-muted-foreground mt-0.5 flex items-center gap-1">
-                  <MapPin className="w-3 h-3" />
-                  {location.type}
-                </p>
-              </div>
+
+              {/* Active Selection Details Banner */}
+              {activeLocation ? (
+                <div className="w-full bg-corporate/5 border border-corporate/20 rounded-xl p-3 sm:p-4 mt-2 transition-all flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-9 h-9 rounded-lg bg-corporate text-white flex items-center justify-center shrink-0">
+                      {(() => {
+                        const Icon = iconMap[activeLocation.iconName];
+                        return <Icon className="w-4 h-4" />;
+                      })()}
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-xs sm:text-sm font-bold text-corporate truncate">
+                        {activeLocation.name}
+                      </h4>
+                      <p className="text-[11px] text-charcoal/70 truncate flex items-center gap-1 mt-0.5">
+                        <MapPin className="w-3 h-3 text-corporate shrink-0" />
+                        {activeLocation.address}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded bg-white text-corporate border border-corporate/20 shrink-0">
+                    {activeLocation.type}
+                  </span>
+                </div>
+              ) : (
+                <div className="mt-2 pt-3 border-t border-gray-100 w-full flex items-center justify-between text-[11px] sm:text-xs text-charcoal/60">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-corporate inline-block" />
+                    Governorate Map
+                  </span>
+                  <span>Tap or hover locations to inspect</span>
+                </div>
+              )}
             </div>
-          ))}
+          </ScrollReveal>
         </div>
-      </ScrollReveal>
+
+        {/* Left Column (Location Cards) */}
+        <div className="lg:col-span-5 space-y-2.5 sm:space-y-3 order-2 lg:order-1">
+          <ScrollReveal direction="right">
+            <div className="flex items-center justify-between mb-1">
+              <p className="text-xs font-bold text-corporate/60 uppercase tracking-widest">
+                KEY LOCATIONS ({bahrainLocations.length})
+              </p>
+              <span className="text-[11px] text-charcoal/50">Kingdom Network</span>
+            </div>
+          </ScrollReveal>
+
+          {bahrainLocations.map((loc, idx) => {
+            const IconComponent = iconMap[loc.iconName];
+            const isSelected = activeLocation?.id === loc.id || selectedState === loc.region;
+
+            return (
+              <ScrollReveal key={loc.id} delay={0.06 * idx} direction="right">
+                <div
+                  onMouseEnter={() => setActiveLocation(loc)}
+                  onMouseLeave={() => setActiveLocation(null)}
+                  onClick={() => setActiveLocation(loc)}
+                  className={`p-3.5 sm:p-4 rounded-xl border transition-all duration-300 cursor-pointer flex items-start gap-3.5 ${
+                    isSelected
+                      ? 'bg-white border-corporate shadow-md translate-x-1 ring-1 ring-corporate/20'
+                      : 'bg-white/80 border-gray-200/80 hover:bg-white hover:border-corporate/40 hover:shadow-xs'
+                  }`}
+                >
+                  <div
+                    className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                      isSelected
+                        ? 'bg-corporate text-white shadow-xs'
+                        : 'bg-corporate/5 text-corporate'
+                    }`}
+                  >
+                    <IconComponent className="w-4 h-4" />
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-display text-xs sm:text-sm font-bold text-charcoal truncate">
+                        {loc.name}
+                      </h3>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-gray-100 text-charcoal/70 shrink-0">
+                        {loc.type}
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] sm:text-xs text-charcoal/60 mt-1 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-corporate shrink-0" />
+                      <span className="truncate">{loc.address}</span>
+                    </p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
+        </div>
+      </div>
     </SectionContainer>
   );
 }
+
+

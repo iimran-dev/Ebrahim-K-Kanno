@@ -6,16 +6,13 @@ import AboutSection from '@/components/kanoo/AboutSection';
 import SustainabilitySection from '@/components/kanoo/SustainabilitySection';
 import BrandsSection from '@/components/kanoo/BrandsSection';
 import NewsSection from '@/components/kanoo/NewsSection';
-import LeadershipSection from '@/components/kanoo/LeadershipSection';
-import CareersSection from '@/components/kanoo/CareersSection';
-import CSRTimeline from '@/components/kanoo/CSRTimeline';
 import BahrainMap from '@/components/kanoo/BahrainMap';
-import ContactCTA from '@/components/kanoo/ContactCTA';
 import Footer from '@/components/kanoo/Footer';
+import BackToTop from '@/components/kanoo/BackToTop';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
       <Header />
       <HeroSection />
       <StatsSection />
@@ -24,12 +21,13 @@ export default function HomePage() {
       <SustainabilitySection />
       <BrandsSection />
       <NewsSection />
-      <LeadershipSection />
-      <CareersSection />
-      <CSRTimeline />
+      {/*<LeadershipSection />*/}
+      {/*<CareersSection />*/}
+      {/*<CSRTimeline />*/}
       <BahrainMap />
-      <ContactCTA />
+      {/*<ContactCTA />*/}
       <Footer />
+      <BackToTop />
     </main>
   );
 }
