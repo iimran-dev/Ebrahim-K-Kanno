@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   output: 'export',
   basePath: "/ekkgroup",
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
