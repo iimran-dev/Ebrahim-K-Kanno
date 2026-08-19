@@ -1,129 +1,204 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
-import { Play, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion, Variants } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const slides = [
+  {
+    id: 1,
+    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=85',
+    alt: 'Luxury silver car driving on highway at golden hour',
+    titleLine1: 'Driven by Trust.',
+    titleLine2: 'Powered by Excellence.',
+    subtitle: "For over 60 years, Ebrahim K. Kanoo has been Bahrain's trusted partner in progress.",
+    ctaText: 'DISCOVER OUR GROUP',
+    ctaLink: '#businesses',
+  },
+  {
+    id: 2,
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=85',
+    alt: 'Modern Middle Eastern skyline at dusk',
+    titleLine1: 'Pioneering Mobility.',
+    titleLine2: 'Inspiring Innovation.',
+    subtitle: 'Delivering world-class automotive, industrial, and technology solutions across the Kingdom.',
+    ctaText: 'EXPLORE BUSINESSES',
+    ctaLink: '#businesses',
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85',
+    alt: 'Modern glass corporate skyscraper architecture',
+    titleLine1: 'Empowering Bahrain.',
+    titleLine2: 'Building The Future.',
+    subtitle: 'Investing in local talent, sustainable development, and nationwide economic progress.',
+    ctaText: 'LEARN MORE ABOUT US',
+    ctaLink: '#about',
+  },
+];
 
 export default function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const fadeUp = {
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+  }, []);
+
+  // Autoplay functionality
+  useEffect(() => {
+    if (isHovered || shouldReduceMotion) return;
+    const interval = setInterval(nextSlide, 6000);
+    return () => clearInterval(interval);
+  }, [nextSlide, isHovered, shouldReduceMotion]);
+
+  const slideVariants: Variants = {
+    initial: { opacity: 0, scale: 1.05 },
+    animate: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } },
+    exit: { opacity: 0, scale: 0.98, transition: { duration: 0.6, ease: 'easeIn' } },
+  };
+
+  const contentVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: (delay: number) => ({
+    visible: (custom: number) => ({
       opacity: 1,
       y: 0,
       transition: {
-        duration: shouldReduceMotion ? 0 : 0.7,
-        delay: shouldReduceMotion ? 0 : delay,
+        duration: shouldReduceMotion ? 0 : 0.6,
+        delay: shouldReduceMotion ? 0 : custom,
         ease: 'easeOut',
       },
     }),
   };
 
+  const currentSlide = slides[currentIndex];
+
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      <Image
-        src="/images/hero-bg.png"
-        alt="Ebrahim K. Kanoo Group - Corporate headquarters"
-        fill
-        className="object-cover"
-        priority
-        sizes="100vw"
-      />
+    <section
+      className="relative w-full h-[82vh] min-h-[620px] max-h-[880px] overflow-hidden bg-[#071930] group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      aria-label="Hero Carousel"
+    >
+      {/* Background Image Carousel */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentSlide.id}
+          variants={slideVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="absolute inset-0 w-full h-full"
+        >
+          <Image
+            src={currentSlide.image}
+            alt={currentSlide.alt}
+            fill
+            className="object-cover object-center"
+            priority={currentIndex === 0}
+            sizes="100vw"
+          />
+          {/* Gradient Overlay for Text Legibility matching image.png */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(7, 25, 48, 0.88) 0%, rgba(7, 25, 48, 0.55) 45%, rgba(7, 25, 48, 0.1) 85%)',
+            }}
+            aria-hidden="true"
+          />
+        </motion.div>
+      </AnimatePresence>
 
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to top, rgba(7, 29, 62, 0.92) 0%, rgba(7, 29, 62, 0.5) 50%, rgba(7, 29, 62, 0.05) 100%)',
-        }}
-        aria-hidden="true"
-      />
+      {/* Main Content Area */}
+      <div className="relative z-10 h-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-16 flex items-center">
+        <div className="max-w-2xl text-white">
+          <AnimatePresence mode="wait">
+            <motion.div key={currentSlide.id}>
+              {/* Main Heading */}
+              <motion.h1
+                custom={0.1}
+                initial="hidden"
+                animate="visible"
+                variants={contentVariants}
+                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[64px] font-bold leading-[1.12] tracking-tight text-white drop-shadow-md"
+              >
+                {currentSlide.titleLine1}
+                <br />
+                {currentSlide.titleLine2}
+              </motion.h1>
 
-      <div className="absolute inset-0 flex items-end">
-        <div className="w-full px-6 pb-16 md:px-10 md:pb-24 lg:px-16">
-          <motion.p
-            custom={0.2}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="text-sm font-medium uppercase tracking-[0.2em] text-white/70"
-          >
-            Ebrahim K. Kanoo Group
-          </motion.p>
+              {/* Subtitle */}
+              <motion.p
+                custom={0.25}
+                initial="hidden"
+                animate="visible"
+                variants={contentVariants}
+                className="mt-5 text-base sm:text-lg md:text-xl text-white/85 max-w-xl font-normal leading-relaxed"
+              >
+                {currentSlide.subtitle}
+              </motion.p>
 
-          <motion.h1
-            custom={0.4}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-4 max-w-3xl font-display text-4xl font-bold leading-[1.1] text-white md:text-5xl lg:text-7xl"
-          >
-            Driven By Trust.
-            <br />
-            Powered By Excellence.
-          </motion.h1>
-
-          <motion.p
-            custom={0.6}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-6 max-w-xl text-lg text-white/80"
-          >
-            For over 60 years, Ebrahim K. Kanoo has been Bahrain&apos;s trusted
-            partner in progress.
-          </motion.p>
-
-          <motion.div
-            custom={0.8}
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mt-10 flex flex-col gap-4 sm:flex-row"
-          >
-            <a
-              href="#businesses"
-              className="inline-flex items-center justify-center bg-white px-8 py-4 font-semibold text-corporate transition-colors hover:bg-silver"
-            >
-              Explore Our Businesses
-            </a>
-            <a
-              href="#story"
-              className="inline-flex items-center justify-center gap-2 border border-white/40 px-8 py-4 font-medium text-white transition-colors hover:bg-white/10"
-            >
-              <Play className="h-4 w-4" aria-hidden="true" />
-              Watch Corporate Story
-            </a>
-          </motion.div>
+              {/* Primary CTA Button */}
+              <motion.div
+                custom={0.4}
+                initial="hidden"
+                animate="visible"
+                variants={contentVariants}
+                className="mt-8"
+              >
+                <a
+                  href={currentSlide.ctaLink}
+                  className="inline-flex items-center gap-3 bg-[#0B4DA2] hover:bg-[#003B91] active:bg-[#003077] text-white px-8 py-4 font-semibold text-sm tracking-wider uppercase rounded transition-all duration-300 shadow-lg shadow-blue-900/40 group/btn"
+                >
+                  <span>{currentSlide.ctaText}</span>
+                  <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1 stroke-[2.5]" aria-hidden="true" />
+                </a>
+              </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 md:bottom-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: shouldReduceMotion ? 0 : 1.2, duration: 0.6 }}
+      {/* Left Navigation Button */}
+      <button
+        onClick={prevSlide}
+        aria-label="Previous Slide"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full border border-white/30 bg-black/20 text-white/90 hover:bg-white/20 hover:border-white flex items-center justify-center transition-all duration-300 backdrop-blur-md shadow-lg"
       >
-        <motion.div
-          animate={
-            shouldReduceMotion
-              ? {}
-              : { y: [0, 6, 0] }
-          }
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="flex flex-col items-center gap-1"
-        >
-          <ChevronDown className="h-5 w-5 text-white/60" />
-          <span className="text-xs uppercase tracking-[0.15em] text-white/50">
-            Scroll
-          </span>
-        </motion.div>
-      </motion.div>
+        <ChevronLeft className="w-6 h-6 stroke-[2]" />
+      </button>
+
+      {/* Right Navigation Button */}
+      <button
+        onClick={nextSlide}
+        aria-label="Next Slide"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white text-[#0B4DA2] shadow-2xl hover:scale-105 flex items-center justify-center transition-all duration-300"
+      >
+        <ChevronRight className="w-6 h-6 stroke-[2.5]" />
+      </button>
+
+      {/* Bottom Progress Bars (Indicators) */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+        {slides.map((slide, idx) => (
+          <button
+            key={slide.id}
+            onClick={() => setCurrentIndex(idx)}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`h-1.5 rounded-full transition-all duration-500 ${
+              currentIndex === idx
+                ? 'w-12 bg-[#0056D2] shadow-lg shadow-blue-500/50'
+                : 'w-10 bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
+      </div>
     </section>
   );
 }

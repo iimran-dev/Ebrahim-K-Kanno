@@ -62,16 +62,18 @@ export default function AnimatedCounter({
     return () => observer.disconnect();
   }, [shouldReduceMotion, startAnimation]);
 
-  const displayCount = shouldReduceMotion ? end : count;
+  const formattedCount = (shouldReduceMotion ? end : count).toLocaleString();
 
   return (
-    <div ref={ref} className="text-center">
-      <div className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-        {prefix}{displayCount}{suffix}
+    <div ref={ref} className="flex flex-col">
+      <div className="font-display text-3xl md:text-4xl xl:text-5xl font-extrabold text-white tracking-tight leading-none">
+        {prefix}{formattedCount}{suffix}
       </div>
-      <div className="mt-2 text-sm md:text-base text-white/70 uppercase tracking-[0.15em] font-medium">
-        {label}
-      </div>
+      {label && (
+        <div className="mt-1.5 text-xs md:text-sm text-white/80 font-medium leading-snug">
+          {label}
+        </div>
+      )}
     </div>
   );
 }

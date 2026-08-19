@@ -1,33 +1,29 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, Variants } from 'framer-motion';
 
 export default function ContactCTA() {
   const shouldReduceMotion = useReducedMotion();
 
-  const containerVariants = shouldReduceMotion
-    ? {}
-    : {
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.2,
-          },
-        },
-      };
+  const containerVariants: Variants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.2,
+      },
+    },
+  };
 
-  const itemVariants = shouldReduceMotion
-    ? {}
-    : {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.7, ease: 'easeOut' },
-        },
-      };
+  const itemVariants: Variants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: shouldReduceMotion ? 0 : 0.7, ease: 'easeOut' },
+    },
+  };
 
   return (
     <motion.section
@@ -40,8 +36,8 @@ export default function ContactCTA() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/contact-bg.png"
-          alt=""
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85"
+          alt="Ebrahim K Kanoo Corporate Headquarters"
           fill
           className="object-cover"
           priority={false}
